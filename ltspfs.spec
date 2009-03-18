@@ -8,15 +8,10 @@ Group:		Base
 Source0:	http://ftp.de.debian.org/debian/pool/main/l/ltspfs/%{name}_%{version}.orig.tar.gz
 # Source0-md5:	a77b64d6449aebf9def3de2dd48d9e21
 URL:		http://www.ltsp.org/twiki/bin/view/Ltsp/LtspFS
+#BuildRequires:	X11-devel
 #BuildRequires:	fuse-devel
 BuildRequires:	glib2-devel
-#BuildRequires:	X11-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%package -n ltspfsd
-Summary:	LTSP file system, userspace FUSE module that runs on a server
-Group:		Base
-Requires:	xorg-x11-utils
 
 %description
 Fuse based remote filesystem for LTSP thin clients LtspFS is a remote
@@ -25,6 +20,10 @@ runs on the LTSP terminal. 2) A FUSE module that runs in userspace on
 the server, that connects with the daemon on the client. This package
 contains the userspace parts for the LTSP server.
 
+%package -n ltspfsd
+Summary:	LTSP file system, userspace FUSE module that runs on a server
+Group:		Base
+Requires:	xorg-x11-utils
 
 %description -n ltspfsd
 Fuse based remote filesystem daemon for LTSP thin clients LtspFS is a
@@ -45,7 +44,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT%{_localstatedir}/run/devices/
+install -d $RPM_BUILD_ROOT%{_localstatedir}/run/devices
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -62,15 +61,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n ltspfsd
 %defattr(644,root,root,755)
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/udev/rules.d/88-ltsp.rules
+%attr(755,root,root) /lib/udev/ltspfs_entry
 %attr(755,root,root) %{_bindir}/ltspfsd
 %attr(755,root,root) %{_sbindir}/cdpinger
 %attr(755,root,root) %{_sbindir}/ltspfs_mount
 %attr(755,root,root) %{_sbindir}/ltspfs_umount
-%{_sysconfdir}/udev/rules.d/88-ltsp.rules
-/lib/udev/ltspfs_entry
-%{_datadir}/ldm/
+%{_datadir}/ldm
 %{_mandir}/man1/ltspfsd.1*
 %{_mandir}/man1/cdpinger.1*
 %{_mandir}/man1/ltspfs_mount.1*
 %{_mandir}/man1/ltspfs_umount.1*
-%dir %{_localstatedir}/run/devices/
+%dir %{_localstatedir}/run/devices
