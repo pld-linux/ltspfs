@@ -1,12 +1,12 @@
 Summary:	LTSP file system, daemon that runs on thin clients
 Name:		ltspfs
-Version:	0.5.9
+Version:	0.5.12
 Release:	0.1
 License:	GPL v2
 Group:		Base
 # where are sources?
 Source0:	http://ftp.de.debian.org/debian/pool/main/l/ltspfs/%{name}_%{version}.orig.tar.gz
-# Source0-md5:	a77b64d6449aebf9def3de2dd48d9e21
+# Source0-md5:	b2b952863788ca0909dc43293c5071e7
 URL:		http://www.ltsp.org/twiki/bin/view/Ltsp/LtspFS
 #BuildRequires:	X11-devel
 #BuildRequires:	fuse-devel
