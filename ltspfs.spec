@@ -8,9 +8,11 @@ Group:		Base
 Source0:	ftp://ftp.debian.org/debian/pool/main/l/ltspfs/%{name}_%{version}.orig.tar.gz
 # Source0-md5:	b2b952863788ca0909dc43293c5071e7
 URL:		http://www.ltsp.org/twiki/bin/view/Ltsp/LtspFS
-#BuildRequires:	X11-devel
-#BuildRequires:	fuse-devel
 BuildRequires:	glib2-devel
+BuildRequires:	libfuse-devel
+BuildRequires:	pkgconfig
+BuildRequires:	rpm-pythonprov
+BuildRequires:	xorg-lib-libX11-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
