@@ -1,4 +1,5 @@
 Summary:	LTSP file system, daemon that runs on thin clients
+Summary(pl.UTF-8):	System plików LTSP - demon działający na "cienkich klientach"
 Name:		ltspfs
 Version:	1.1
 Release:	0.2
@@ -7,7 +8,7 @@ Group:		Base
 # where are sources?
 Source0:	ftp://ftp.debian.org/debian/pool/main/l/ltspfs/%{name}_%{version}.orig.tar.gz
 # Source0-md5:	09b88d944bf2b8c4b3d28447784acb35
-URL:		http://www.ltsp.org/twiki/bin/view/Ltsp/LtspFS
+URL:		http://wiki.ltsp.org/
 BuildRequires:	glib2-devel
 BuildRequires:	libfuse-devel
 BuildRequires:	pkgconfig
@@ -17,14 +18,24 @@ BuildRequires:	xorg-lib-libX11-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Fuse based remote filesystem for LTSP thin clients LtspFS is a remote
-filesystem consisting of two parts: 1) A network server daemon that
-runs on the LTSP terminal. 2) A FUSE module that runs in userspace on
-the server, that connects with the daemon on the client. This package
-contains the userspace parts for the LTSP server.
+LtspFS is a remote filesystem consisting of two parts:
+ 1) A network server daemon that runs on the LTSP terminal.
+ 2) A FUSE module that runs in userspace on the server, that connects
+    with the daemon on the client.
+
+This package contains the userspace parts for the LTSP server.
+
+%description -l pl.UTF-8
+LtspFS to zdalny system plików składający się z dwóch części:
+ 1) demona serwera sieciowego działającego na terminalu LTSP,
+ 2) modułu FUSE działającego w przestrzeni użytkownika na serwerze,
+    łączącego się z demonem na kliencie.
+
+Ten pakiet zawiera elementy przestrzeni użytkownika dla serwera LTSP.
 
 %package -n ltspfsd
 Summary:	LTSP file system, userspace FUSE module that runs on a server
+Summary(pl.UTF-8):	System plików LTSP - moduł FUSE działający na serwerze
 Group:		Base
 Requires:	xorg-app-xdpyinfo
 Requires:	xorg-app-xev
@@ -36,11 +47,20 @@ Requires:	xorg-app-xvinfo
 Requires:	xorg-app-xwininfo
 
 %description -n ltspfsd
-Fuse based remote filesystem daemon for LTSP thin clients LtspFS is a
-remote filesystem consisting of two parts: 1) A network server daemon
-that runs on the LTSP terminal. 2) A FUSE module that runs in
-userspace on the server, that connects with the daemon on the client.
+LtspFS is a remote filesystem consisting of two parts:
+ 1) A network server daemon that runs on the LTSP terminal.
+ 2) A FUSE module that runs in userspace on the server, that connects
+    with the daemon on the client.
+
 This package contains the daemon to be run on the LTSP thin client.
+
+%description -n ltspfsd -l pl.UTF-8
+LtspFS to zdalny system plików składający się z dwóch części:
+ 1) demona serwera sieciowego działającego na terminalu LTSP,
+ 2) modułu FUSE działającego w przestrzeni użytkownika na serwerze,
+    łączącego się z demonem na kliencie.
+
+Ten pakiet zawiera demona uruchamianego na "cienkich klientach" LTSP.
 
 %prep
 %setup -q
@@ -78,13 +98,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n ltspfsd
 %defattr(644,root,root,755)
-/lib/udev/rules.d/ltspfsd.rules
-%{systemdtmpfilesdir}/ltspfsd.conf
-%attr(755,root,root) /lib/udev/ltspfs_entry
 %attr(755,root,root) %{_bindir}/ltspfsd
 %attr(755,root,root) %{_sbindir}/cdpinger
 %attr(755,root,root) %{_sbindir}/ltspfs_mount
 %attr(755,root,root) %{_sbindir}/ltspfs_umount
+%attr(755,root,root) /lib/udev/ltspfs_entry
+/lib/udev/rules.d/ltspfsd.rules
+%{systemdtmpfilesdir}/ltspfsd.conf
 %{_datadir}/ldm
 %dir %{_datadir}/ltsp
 %dir %{_datadir}/ltsp/xinitrc.d
