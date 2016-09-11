@@ -1,15 +1,18 @@
 Summary:	LTSP file system, daemon that runs on thin clients
 Summary(pl.UTF-8):	System plików LTSP - demon działający na "cienkich klientach"
 Name:		ltspfs
-Version:	1.1
-Release:	0.2
-License:	GPL v2
+Version:	1.4
+Release:	0.1
+License:	GPL v2+
 Group:		Base
 # where are sources?
 Source0:	ftp://ftp.debian.org/debian/pool/main/l/ltspfs/%{name}_%{version}.orig.tar.gz
-# Source0-md5:	09b88d944bf2b8c4b3d28447784acb35
+# Source0-md5:	c25775a308059f228697176119551325
 URL:		http://wiki.ltsp.org/
-BuildRequires:	glib2-devel
+BuildRequires:	autoconf >= 2.59
+BuildRequires:	automake
+# only checked for
+BuildRequires:	glib2-devel >= 1:2.6.0
 BuildRequires:	libfuse-devel
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-pythonprov
@@ -68,6 +71,7 @@ Ten pakiet zawiera demona uruchamianego na "cienkich klientach" LTSP.
 %build
 %{__aclocal}
 %{__autoconf}
+%{__autoheader}
 %{__automake}
 %configure \
 	UDEV_RULES_PATH=/lib/udev/rules.d
@@ -88,7 +92,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc COPYING ChangeLog
+%doc AUTHORS ChangeLog doc/examples/*
 %attr(755,root,root) %{_bindir}/ltspfs
 %attr(4755,root,root) %{_bindir}/lbmount
 %attr(755,root,root) %{_sbindir}/ltspfsmounter
@@ -99,18 +103,19 @@ rm -rf $RPM_BUILD_ROOT
 %files -n ltspfsd
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ltspfsd
-%attr(755,root,root) %{_sbindir}/cdpinger
 %attr(755,root,root) %{_sbindir}/ltspfs_mount
 %attr(755,root,root) %{_sbindir}/ltspfs_umount
 %attr(755,root,root) /lib/udev/ltspfs_entry
 /lib/udev/rules.d/ltspfsd.rules
 %{systemdtmpfilesdir}/ltspfsd.conf
-%{_datadir}/ldm
+%dir %{_datadir}/ldm
+%dir %{_datadir}/ldm/rc.d
+%{_datadir}/ldm/rc.d/X10-delayed-mounter
+%{_datadir}/ldm/rc.d/X98-delayed-mounter
 %dir %{_datadir}/ltsp
 %dir %{_datadir}/ltsp/xinitrc.d
 %{_datadir}/ltsp/xinitrc.d/I05-set-ltspfs_token
 %{_mandir}/man1/ltspfsd.1*
-%{_mandir}/man1/cdpinger.1*
 %{_mandir}/man1/ltspfs_mount.1*
 %{_mandir}/man1/ltspfs_umount.1*
 %dir %{_localstatedir}/run/devices
