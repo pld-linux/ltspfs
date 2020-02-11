@@ -6,7 +6,7 @@ Release:	0.1
 License:	GPL v2+
 Group:		Base
 # where are sources?
-Source0:	ftp://ftp.debian.org/debian/pool/main/l/ltspfs/%{name}_%{version}.orig.tar.gz
+Source0:	http://ftp.debian.org/debian/pool/main/l/ltspfs/%{name}_%{version}.orig.tar.gz
 # Source0-md5:	c25775a308059f228697176119551325
 URL:		http://wiki.ltsp.org/
 BuildRequires:	autoconf >= 2.59
